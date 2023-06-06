@@ -4,9 +4,6 @@ const User = require("../models/User");
 const config = require('../config/global');
 
 exports.crearUsuario = async (req, res) => {
-    //const { username, email, password } = req.body;
-    //console.log(username, email, password)
-    //console.log(user)
 
     try {
         

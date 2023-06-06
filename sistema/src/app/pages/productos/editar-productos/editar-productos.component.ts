@@ -15,6 +15,7 @@ import Swal from 'sweetalert2'
 export class EditarProductosComponent implements OnInit {
   productoForm: FormGroup;
   id: string | null; 
+  uploadFiles: Array<File> = [];
   constructor(private fb: FormBuilder,
               private aRouter: ActivatedRoute,
               private router: Router,
@@ -23,6 +24,7 @@ export class EditarProductosComponent implements OnInit {
         producto: ['', Validators.required],
         categoria: ['', Validators.required],
         ubicacion: ['', Validators.required],
+        imagen: ['', Validators.required],
         precio: ['', Validators.required]
     })
     this.id = aRouter.snapshot.paramMap.get('id');
@@ -42,6 +44,7 @@ export class EditarProductosComponent implements OnInit {
           producto: data.producto,
           categoria: data.categoria,
           ubicacion: data.ubicacion,
+          imagen: '',
           precio: data.precio
         })
       })
@@ -50,13 +53,26 @@ export class EditarProductosComponent implements OnInit {
   }
 
   editarProducto(){
+
+    let formData = new FormData();
+
+    for(let i = 0; i < this.uploadFiles.length; i++){
+      formData.append("uploads[]", this.uploadFiles[i], this.uploadFiles[i].name)
+    }
     
     const PRODUCTO: Producto = {
       producto: this.productoForm.get('producto')?.value,
       categoria: this.productoForm.get('categoria')?.value,
       ubicacion: this.productoForm.get('ubicacion')?.value,
+      imagen: this.productoForm.get('imagen')?.value,
       precio: this.productoForm.get('precio')?.value,
     }
+
+    formData.append('producto', PRODUCTO.producto)
+    formData.append('categoria', PRODUCTO.categoria)
+    formData.append('ubicacion', PRODUCTO.ubicacion)
+    formData.append('imagen', PRODUCTO.imagen)
+    formData.append('precio', PRODUCTO.precio)
 
     Swal.fire({
           title: 'Actualizacion de Producto',
@@ -70,15 +86,19 @@ export class EditarProductosComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             if(this.id !== null){
-              this._productoService.actualizarProducto(this.id, PRODUCTO).subscribe(data => {
+              this._productoService.actualizarProducto(this.id, formData).subscribe(data => {
                   console.log(PRODUCTO);
                   this.router.navigate(['/listar-productos']) 
               })
             }
           }
         })
-    
-           
+      
+  }
+
+  onFileChange(e: any){
+    //console.log(e);
+    this.uploadFiles = e.target.files;
   }
 
 }

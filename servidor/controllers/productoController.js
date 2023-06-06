@@ -32,7 +32,7 @@ exports.actualizarProducto = async (req, res) => {
 
     try {
 
-        const {_id, producto, categoria, ubicacion, precio } = new Producto(req.body);
+        const {_id, producto, categoria, ubicacion, imagen, precio } = new Producto(req.body);
         let products = await Producto.findById(req.params.id);
 
         if(!products){
@@ -43,6 +43,7 @@ exports.actualizarProducto = async (req, res) => {
         products.producto = producto;
         products.categoria = categoria;
         products.ubicacion = ubicacion;
+        products.imagen = imagen;
         products.precio = precio;
 
         console.log(products)
@@ -68,7 +69,7 @@ exports.verProducto = async (req, res) => {
             res.status(404).json({ msg: 'No existe el producto'});
         }
 
-        res.json(products);
+        res.json(products); 
         
     } catch (error) {
         console.log(error);

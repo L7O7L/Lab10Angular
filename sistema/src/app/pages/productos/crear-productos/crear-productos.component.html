@@ -11,7 +11,7 @@
                                 <div class="row">
                                     <div class="col-sm-12"><h5 class="m-t-xs">Ingreso de Producto</h5></div>
                                 </div>
-                                <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
+                                <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label>Producto</label>
                                         <input type="text" formControlName="producto"
@@ -50,6 +50,16 @@
                                             *ngIf="productoForm.get('precio')?.hasError('required') && 
                                                     productoForm.get('precio')?.touched">
                                             <span>El precio <strong>es obligatorio</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Referencia</label>
+                                        <input type="file" formControlName="imagen" (change)="onFileChange($event)"
+                                            class="form-control" placeholder="Ingresar Referencia">
+                                        <div class="text-danger"
+                                            *ngIf="productoForm.get('imagen')?.hasError('required') && 
+                                                    productoForm.get('imagen')?.touched">
+                                            <span>La referencia del producto <strong>es obligatoria</strong></span>
                                         </div>
                                     </div>
                                     <div  class="col-sm-12 text-right">

@@ -6,7 +6,9 @@ import { Producto } from '../models/producto';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductoService {
+  
   url = 'http://localhost:4000/api/productos/';
 
   constructor(private http: HttpClient) { 
@@ -21,16 +23,16 @@ export class ProductoService {
     return this.http.delete(this.url + id);
   }
 
-  guardarProducto(producto: Producto): Observable<any> {
-    return this.http.post(this.url, producto);
+  guardarProducto(formData: any): Observable<any> {
+    return this.http.post(this.url, formData);
   }
 
   viewProducto(id?: string): Observable<any> {
     return this.http.get(this.url + id)
   }
 
-  actualizarProducto(id: string, producto: Producto): Observable<any> {
-    return this.http.put(this.url + id, producto);
+  actualizarProducto(id: string, formData: any): Observable<any> {
+    return this.http.put(this.url + id, formData);
   }
 
 }

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/users/login/login.component';
@@ -13,6 +14,8 @@ import { CrearProductosComponent } from './pages/productos/crear-productos/crear
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { VerProductoComponent } from './pages/productos/ver-producto/ver-producto.component';
 import { EditarProductosComponent } from './pages/productos/editar-productos/editar-productos.component';
+import { TiendasComponent } from './pages/tiendas/tiendas.component';
+import { CrearTiendasComponent } from './pages/tiendas/crear-tiendas/crear-tiendas.component';
 
 
 @NgModule({
@@ -25,12 +28,15 @@ import { EditarProductosComponent } from './pages/productos/editar-productos/edi
     NavbarComponent,
     VerProductoComponent,
     EditarProductosComponent,
+    TiendasComponent,
+    CrearTiendasComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -31,11 +31,5 @@ export class DataLoginService {
     return !!localStorage.getItem('token');
 
   }
-
-  createUser(user: Usuario): Observable<any>{
-
-    return this.http.post(this.url + "/create", user);
-
-  }
-
+  
 }

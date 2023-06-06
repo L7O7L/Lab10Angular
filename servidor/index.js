@@ -1,6 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db')
 const config = require('./config/global');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
@@ -9,6 +10,11 @@ const app = express();
 conectarDB();
 
 app.use(cors())
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(express.json());
 

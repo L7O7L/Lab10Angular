@@ -30,6 +30,7 @@
                                                     <th>Categoria</th>
                                                     <th>Ubicacion</th>
                                                     <th>Precio</th>
+                                                    <th>Imagen</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -39,6 +40,7 @@
                                                     <td>{{ producto.categoria }}</td>
                                                     <td>{{ producto.ubicacion }}</td>
                                                     <td>{{ producto.precio | currency: 'S/.' }}</td>
+                                                    <td>{{ producto.imagen }}</td>
                                                     <td>
                                                         <i (click)="eliminarProducto(producto._id)"
                                                             style="font-size: 25px;"

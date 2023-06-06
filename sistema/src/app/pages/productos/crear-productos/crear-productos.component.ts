@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 export class CrearProductosComponent {
 
   productoForm: FormGroup;
+  uploadFiles: Array<File> = [];
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -21,20 +22,32 @@ export class CrearProductosComponent {
         producto:  ['', Validators.required],
         categoria: ['', Validators.required],
         ubicacion: ['', Validators.required],
-        precio:    ['', Validators.required]
+        imagen: ['', Validators.required],
+        precio: ['', Validators.required]
     })
   }
 
   agregarProducto(){
 
+    let formData = new FormData();
+
+    for(let i = 0; i < this.uploadFiles.length; i++){
+      formData.append("uploads[]", this.uploadFiles[i], this.uploadFiles[i].name)
+    }
+
     const PRODUCTO: Producto = {
       producto: this.productoForm.get('producto')?.value,
       categoria: this.productoForm.get('categoria')?.value,
       ubicacion: this.productoForm.get('ubicacion')?.value,
+      imagen: this.productoForm.get('imagen')?.value,
       precio: this.productoForm.get('precio')?.value,
     }
 
-    console.log(PRODUCTO)
+    formData.append('producto', PRODUCTO.producto)
+    formData.append('categoria', PRODUCTO.categoria)
+    formData.append('ubicacion', PRODUCTO.ubicacion)
+    formData.append('imagen', PRODUCTO.imagen)
+    formData.append('precio', PRODUCTO.precio)
 
     Swal.fire({
       title: 'Creacion de Producto',
@@ -47,17 +60,19 @@ export class CrearProductosComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this._productoService.guardarProducto(PRODUCTO).subscribe(data =>{
+        this._productoService.guardarProducto(formData).subscribe(data =>{
           console.log(data);  
           this.router.navigate(['/listar-productos'])
         }) 
       }
     })
-
     
   }
 
+  onFileChange(e: any){
+    //console.log(e);
+    this.uploadFiles = e.target.files;
+  }
     //console.log(this.productoForm)
   
-
 }
